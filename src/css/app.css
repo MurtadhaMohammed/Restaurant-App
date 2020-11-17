@@ -1,0 +1,195 @@
+@import "antd/dist/antd.css";
+
+@font-face {
+  font-family: "Frutiger";
+  src: url("../fonts/Frutiger LT Arabic 55 Roman.ttf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Frutiger";
+  src: url("../fonts/Frutiger LT Arabic 65 Bold.ttf");
+  font-weight: bold;
+}
+
+* {
+  direction: rtl;
+  font-family: "Frutiger" !important;
+}
+
+body {
+  overflow: hidden;
+}
+
+.app-navbar {
+  background-color: #f3f3f3;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+}
+
+.app-navbar .app-menu {
+  width: 70px;
+  background-color: #fff;
+  height: 100%;
+  position: fixed;
+  right: 0;
+  border-left: 1px solid #eee;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app-navbar .app-container {
+  width: calc(100% - 70px);
+  margin-right: 70px;
+}
+
+.app-navbar .app-container .app-header {
+  width: 100%;
+  height: 74px;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+  padding: 0 40px;
+}
+
+.app-navbar .app-container .app-page {
+  padding: 40px;
+  overflow: scroll;
+  height: calc(100vh - 74px);
+}
+
+.app-navbar .app-menu .nav-link {
+  padding: 10px 8px;
+  border-radius: 4px;
+  display: "flex";
+  align-items: "center";
+  justify-content: "center";
+  margin-top: 18px;
+  transition: 0.2s;
+}
+.app-navbar .app-menu .nav-link-active {
+  background-color: #f3f3f3;
+}
+
+.app-navbar .app-menu .nav-link:hover {
+  background-color: #f3f3f3;
+}
+
+.app-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-account {
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  padding: 5px 8px;
+  background-color: #f3f3f3;
+}
+
+.user-account h4 {
+  margin: 0 10px;
+  font-weight: bold;
+}
+
+.users-page .ant-table-thead > tr > th {
+  background-color: transparent;
+  font-size: 12px;
+  color: gray;
+}
+
+.page-home .items-cards .ant-card-body {
+  height: 62vh;
+  overflow: scroll;
+}
+.page-home .items-card .ant-card-body {
+  height: auto;
+  padding: 16px;
+}
+.page-home .paid-cards .ant-card-body {
+  height: 51vh;
+  overflow: scroll;
+  padding: 0px;
+}
+
+.page-home .paid-cards .ant-card-body th {
+  color: #ccc;
+  font-size: 13px;
+}
+
+.page-home .reset-btn {
+  /* background-color: #ccc;
+  color: #000; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: .3s;
+}
+.page-home .print-btn {
+  background-color: #333;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: .3s;
+}
+.page-home .print-btn:hover,
+.page-home .reset-btn:hover {
+  opacity: 0.8;
+}
+
+.page-home .print-btn .ant-card-body {
+  padding: 21px;
+}
+
+.page-home .final-paid small {
+  color: gray;
+}
+
+.page-home .final-paid h1 {
+  font-weight: bold;
+  font-size: 30px;
+}
+.page-home .final-paid .ant-card-body{
+  padding-top: 0px;
+  padding-bottom: 0px;
+  background-color: #fbfbfb;
+}
+.page-home .discount-card .ant-card-body {
+  background-color: #fbfbfb;
+}
+
+
+
+.page-home .filter-btns .filter-btn .ant-card-body{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  padding: 20px 10px;
+}
+.page-home .filter-btns .filter-btn img{
+  width: 30px;
+  margin-left: 6px;
+  margin-bottom: 5px;
+}
+.page-home .filter-btns .active{
+   background-color: #fafafa;
+}
+
+.app-dot{
+  width: 10px;
+  height: 10px;
+  background-color: #000;
+  border-radius: 50%;
+  display: inline-block;
+  margin-left: 10px;
+}
