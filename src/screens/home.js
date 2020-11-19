@@ -73,7 +73,7 @@ export function Home() {
   return (
     <div className="page page-home">
       <Row gutter={[20, 20]}>
-        <Col flex="0 1 460px" >
+        <Col flex="0 1 460px">
           <Row>
             <Col span={24}>
               <Card className="paid-cards">
@@ -198,7 +198,8 @@ export function Home() {
                 </Col>
                 <Col span={3}>
                   <Card className="filter-btn active" hoverable>
-                    <img src={require("../assets/svg/icon11.svg")} /> اكلات شرقية
+                    <img src={require("../assets/svg/icon11.svg")} /> اكلات
+                    شرقية
                   </Card>
                 </Col>
                 <Col span={3}>
@@ -208,7 +209,8 @@ export function Home() {
                 </Col>
                 <Col span={3}>
                   <Card className="filter-btn" hoverable>
-                    <img src={require("../assets/svg/icon10.svg")} /> وجبات سريعة
+                    <img src={require("../assets/svg/icon10.svg")} /> وجبات
+                    سريعة
                   </Card>
                 </Col>
                 <Col span={3}>
@@ -219,7 +221,6 @@ export function Home() {
                 <Col span={3}>
                   <Card className="filter-btn" hoverable>
                     <img src={require("../assets/svg/icon13.svg")} /> عصائر
-                    
                   </Card>
                 </Col>
                 <Col span={3}>

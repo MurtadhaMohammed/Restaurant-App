@@ -99,7 +99,7 @@ body {
 }
 
 .users-page .ant-table-thead > tr > th {
-  background-color: transparent;
+  /* background-color: transparent; */
   font-size: 12px;
   color: gray;
 }
@@ -192,4 +192,35 @@ body {
   border-radius: 50%;
   display: inline-block;
   margin-left: 10px;
+}
+
+.users-page .users-table .ant-card-body{
+  padding: 0px;
+}
+
+.reports-page .report-table .ant-card-body{
+  padding: 0px;
+}
+
+.reports-page .report-table th{
+  font-size: 12px;
+  color: gray;
+}
+/* .reports-page .report-table{
+  min-height: 600px;
+} */
+
+.table-footer {
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.table-footer .paginate-info {
+  display: flex;
+  align-items: center;
+}
+
+.table-footer span {
+  color: #31303085;
 }

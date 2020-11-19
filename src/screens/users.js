@@ -25,7 +25,7 @@ const columns = [
     key: "name",
     width: 50,
     render: (val) => (
-      <Avatar style={{ backgroundColor: "#87d068" }} icon={<UserOutlined />} />
+      <Avatar style={{ backgroundColor: "#ccc" }} icon={<UserOutlined />} />
     ),
   },
   {
@@ -64,8 +64,8 @@ const columns = [
     render: (val) => (
       <div>
         <Switch size="small" defaultChecked={val} />{" "}
-        <Button style={{marginLeft: 10, marginRight: 10}} type="text" icon={<EditOutlined />} />{" "}
-        <Button danger type="text" icon={<DeleteOutlined />} />
+        <Button style={{marginLeft: 10, marginRight: 10, color:"gray"}} type="text" icon={<EditOutlined />} />{" "}
+        <Button style={{color: 'gray'}} type="text" icon={<DeleteOutlined />} />
       </div>
     ),
   },
@@ -74,9 +74,9 @@ const columns = [
 export function Users() {
   return (
     <div className="page users-page">
-      <Row gutter={[30, 30]}>
+      <Row gutter={[20, 20]}>
         <Col span={17}>
-          <Card style={{ minHeight: 700 }}>
+          <Card style={{ minHeight: 700 }} className="users-table">
             <Table
               scroll={{ y: 400 }}
               pagination={false}
