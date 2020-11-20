@@ -3,6 +3,7 @@ import { HomeIcon, FoodIcon, SettingIcon, StatsIcon, UsersIcon } from "./icons";
 import NavLink from "./navLink";
 import { useLocation } from "react-router-dom";
 import { Avatar, Menu, Dropdown } from "antd";
+import { MainStore } from "../store";
 
 import {
   UserOutlined,
@@ -12,6 +13,7 @@ import {
 } from "@ant-design/icons";
 
 export default function AppContainer(props) {
+  const {setIsLogin} = MainStore()
   const [path, setPath] = useState("/");
   let location = useLocation();
 
@@ -22,7 +24,7 @@ export default function AppContainer(props) {
   const menu = (
     <Menu>
       <Menu.Item icon={<EditOutlined />}>تغيير كلمة المرور</Menu.Item>
-      <Menu.Item danger icon={<LogoutOutlined />}>
+      <Menu.Item onClick={()=> setIsLogin(false)} danger icon={<LogoutOutlined />}>
         تسجيل خروج
       </Menu.Item>
     </Menu>

@@ -1,4 +1,5 @@
 @import "antd/dist/antd.css";
+@import "react-simple-keyboard/build/css/index.css";
 
 @font-face {
   font-family: "Frutiger";
@@ -224,3 +225,23 @@ body {
 .table-footer span {
   color: #31303085;
 }
+
+.page-login{
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hg-theme-default{
+  min-width: 600px ;
+}
+
+.page-login .brand-msg{
+  position: absolute;
+  bottom: 180px;
+  direction: ltr;
+  color: #b6b4b4;
+}
+
+
