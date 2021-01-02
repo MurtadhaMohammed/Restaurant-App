@@ -1,243 +1,180 @@
-import React from "react";
-import items from "../fake/items";
-import paidItems from "../fake/paidItems";
-import { UsersIcon } from "../components/icons";
-import {
-  Card,
-  Input,
-  Row,
-  Col,
-  Tag,
-  Table,
-  Skeleton,
-  Button,
-  InputNumber,
-} from "antd";
-import {
-  DeleteOutlined,
-  MinusCircleOutlined,
-  PlusCircleOutlined,
-  ClearOutlined,
-  PrinterOutlined,
-} from "@ant-design/icons";
+import React, { useState, useEffect } from "react";
+import { Select, Button, Empty, Spin, Drawer, message } from "antd";
+import { PatientItem, PatientForm } from "../components/home";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { PatientStore } from "../store/patinetStore";
+import { createPatient, getPatients } from "../db/controllers";
 
-const { Meta } = Card;
+const { Option } = Select;
 
-const columns = [
+const patients = [
   {
-    title: "",
-    dataIndex: "id",
-    key: "id",
-    width: 20,
-    render: (val) => (
-      <Button style={{ color: "gray" }} type="text" icon={<DeleteOutlined />} />
-    ),
+    id: 1,
+    name: "Murtadha M.Abed",
+    gender: "male",
+    phone: "077108756002",
+    age: 35,
+    address: "Baghdad - Al-shaab",
   },
   {
-    title: "الاسم",
-    dataIndex: "name",
-    key: "name",
-    render: (val) => (
-      <span style={{ fontWeight: "bold", fontSize: 12 }}>{val}</span>
-    ),
+    id: 2,
+    name: "مروه احمد ستار",
+    gender: "female",
+    phone: "078108756983",
+    age: 28,
+    address: "بغداد - البلديات",
   },
   {
-    title: "العدد",
-    dataIndex: "qt",
-    key: "qt",
-    render: (val) => (
-      <div>
-        <Button
-          style={{ color: "gray" }}
-          type="text"
-          icon={<PlusCircleOutlined />}
-        />
-        <span style={{ marginRight: 5, marginLeft: 5 }}>4</span>
-        <Button
-          style={{ color: "gray" }}
-          type="text"
-          icon={<MinusCircleOutlined />}
-        />
-      </div>
-    ),
+    id: 3,
+    name: "Ali M.Salim",
+    gender: "male",
+    phone: "077190756553",
+    age: 26,
+    address: "Baghdad - Al-Mansoor",
   },
   {
-    title: "السعر",
-    dataIndex: "price",
-    key: "price",
-    render: (val) => <span style={{ color: "gray" }}>{val}</span>,
+    id: 4,
+    name: "Zainab Ali",
+    gender: "female",
+    phone: "078108756553",
+    age: 16,
+    address: "Baghdad",
+  },
+  {
+    id: 5,
+    name: "سارة علي سلام",
+    gender: "female",
+    phone: "078108756120",
+    age: 23,
+    address: "بغداد - شارع فلسطين",
+  },
+  {
+    id: 6,
+    name: "حامد سلوم سلمان",
+    gender: "male",
+    phone: "078108756121",
+    age: 23,
+    address: "بغداد - شارع فلسطين",
   },
 ];
 
-export function Home() {
-  return (
-    <div className="page page-home">
-      <Row gutter={[20, 20]}>
-        <Col flex="0 1 460px">
-          <Row>
-            <Col span={24}>
-              <Card className="paid-cards">
-                <Table
-                  pagination={false}
-                  dataSource={paidItems}
-                  columns={columns}
-                />
-              </Card>
-            </Col>
-            <Col span={24}>
-              <Card className="discount-card">
-                <div className="app-flex">
-                  <span>قيمة الخصم (%)</span>
-                  <InputNumber
-                    min={0}
-                    max={100}
-                    formatter={(value) => `${value}%`}
-                    parser={(value) => value.replace("%", "")}
-                    defaultValue={0}
-                  />
-                </div>
-              </Card>
-            </Col>
-            <Col span={24}>
-              <Card className="final-paid">
-                <div className="app-flex" style={{ marginTop: 20 }}>
-                  <div>
-                    <small>السعر النهائي</small>
-                    <h1>32,000 IQD</h1>
-                  </div>
-                  <div>
-                    <small>السعر بدون خصم</small>
-                    <h3>34,000 IQD</h3>
-                  </div>
-                </div>
-              </Card>
-            </Col>
+export const HomeScreen = (props) => {
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
+  const [isNew, setIsNew] = useState(false);
+  const [addLoading, setAddLoading] = useState(false);
+  const [count, setCount] = useState(0);
+  const [page, setPage] = useState(1);
+  const [pages, setPages] = useState(0);
+  const [query, setQuery] = useState("");
 
-            <Col span={8}>
-              <Card className="reset-btn" hoverable>
-                <ClearOutlined />
-              </Card>
-            </Col>
-            <Col span={16}>
-              <Card className="print-btn" hoverable>
-                <PrinterOutlined style={{ marginLeft: 10 }} /> طباعة
-              </Card>
-            </Col>
-          </Row>
-        </Col>
-        <Col flex="1">
-          <Row>
-            <Col span={24}>
-              <Card
-                className="items-cards"
-                title={
-                  <div className="app-flex">
-                    <h4>قائمة الاصناف</h4>
-                    <Input.Search
-                      style={{ width: 300 }}
-                      placeholder="بحث . . ."
-                    />
-                  </div>
-                }
-              >
-                <Row gutter={[25, 25]}>
-                  {items.map((item) => (
-                    <Col key={item.id} span={6}>
-                      <Card
-                        className="items-card"
-                        hoverable
-                        style={{ width: "100%" }}
-                        cover={
-                          <img
-                            style={{
-                              height: "10vw",
-                              width: "100%",
-                              objectFit: "cover",
-                            }}
-                            alt="example"
-                            src={item.image}
-                          />
-                        }
-                      >
-                        <Meta
-                          title={
-                            <div>
-                              <h4
-                                style={
-                                  !item.active
-                                    ? {
-                                        color: "#35353540",
-                                        textDecoration: "line-through",
-                                      }
-                                    : {}
-                                }
-                              >
-                                {item.name}
-                              </h4>
-                              <Tag
-                                style={{ margin: 0 }}
-                                color={item.active ? "success" : "error"}
-                              >
-                                {item.price} IQD
-                              </Tag>
-                            </div>
-                          }
-                        />
-                      </Card>
-                    </Col>
-                  ))}
-                </Row>
-              </Card>
-            </Col>
-            <Col span={24}>
-              <Row className="filter-btns">
-                <Col span={3}>
-                  <Card className="filter-btn" hoverable>
-                    <img src={require("../assets/svg/icon7.svg")} /> الكل
-                  </Card>
-                </Col>
-                <Col span={3}>
-                  <Card className="filter-btn active" hoverable>
-                    <img src={require("../assets/svg/icon11.svg")} /> اكلات
-                    شرقية
-                  </Card>
-                </Col>
-                <Col span={3}>
-                  <Card className="filter-btn" hoverable>
-                    <img src={require("../assets/svg/icon9.svg")} /> اكلات غربية
-                  </Card>
-                </Col>
-                <Col span={3}>
-                  <Card className="filter-btn" hoverable>
-                    <img src={require("../assets/svg/icon10.svg")} /> وجبات
-                    سريعة
-                  </Card>
-                </Col>
-                <Col span={3}>
-                  <Card className="filter-btn" hoverable>
-                    <img src={require("../assets/svg/icon12.svg")} /> مشاوي
-                  </Card>
-                </Col>
-                <Col span={3}>
-                  <Card className="filter-btn" hoverable>
-                    <img src={require("../assets/svg/icon13.svg")} /> عصائر
-                  </Card>
-                </Col>
-                <Col span={3}>
-                  <Card className="filter-btn" hoverable>
-                    <img src={require("../assets/svg/icon6.svg")} /> مقبلات
-                  </Card>
-                </Col>
-                <Col span={3}>
-                  <Card className="filter-btn" hoverable>
-                    <img src={require("../assets/svg/icon5.svg")} /> تحلية
-                  </Card>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+  let {
+    name,
+    age,
+    address,
+    gender,
+    phone,
+    setName,
+    setAge,
+    setGender,
+    setPhone,
+    setAddress,
+  } = PatientStore();
+
+  useEffect(() => {
+    loadData();
+  }, [page, query]);
+
+  const loadData = () => {
+    setLoading(true);
+    getPatients(page, query, (result) => {
+      if (result.status) {
+        setLoading(false);
+        setData(result.patients);
+        setCount(result.total);
+        setPages(result.pages);
+      }
+    });
+  };
+
+  const addPatient = () => {
+    let data = { name, age, address, gender, phone };
+    setAddLoading(true);
+    createPatient(data, (status) => {
+      if (status) {
+        setAddLoading(false);
+        setName(null);
+        setAge(null);
+        setGender(null);
+        setPhone(null);
+        setAddress(null);
+        setIsNew(false);
+        loadData();
+        message.success("Insert successfully .");
+      } else {
+        setAddLoading(false);
+        message.error("The process is not complete!");
+      }
+    });
+  };
+
+  return (
+    <div className="page">
+      <section className="app-flex patients-list-header">
+        <div>
+          <span>Patient List for</span>
+          <Select defaultValue="1" bordered={false}>
+            <Option value={"1"}>This Day</Option>
+            <Option value={"2"}>Last Week</Option>
+            <Option value={"3"}>All </Option>
+          </Select>
+        </div>
+        <Button size="large" type="link" onClick={() => setIsNew(true)}>
+          + New Patient
+        </Button>
+      </section>
+      <section className="patients-list">
+        <Spin tip="Loading..." spinning={loading}>
+          {data.length > 0 ? (
+            data.map((item) => <PatientItem key={item.id} item={item} />)
+          ) : (
+            <Empty
+              style={{ padding: 50 }}
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+            />
+          )}
+          <div className="patient-item list-footer">
+            <div className="left">{count} Patients for search results</div>
+            <div className="right">
+              <Button
+                type="text"
+                icon={<FaArrowLeft style={{ fontSize: 12 }} />}
+                disabled={page === 1 ? true : false}
+                onClick={() => setPage(pages + 1)}
+              />
+              <span>
+                {page}/{pages}
+              </span>
+              <Button
+                type="text"
+                icon={<FaArrowRight style={{ fontSize: 12 }} />}
+                disabled={page === pages ? true : false}
+                onClick={() => setPage(pages - 1)}
+              />
+            </div>
+          </div>
+        </Spin>
+      </section>
+      <Drawer
+        title={<span>New Patient</span>}
+        placement="right"
+        closable={true}
+        width={440}
+        onClose={() => setIsNew(false)}
+        visible={isNew}
+      >
+        <PatientForm loading={addLoading} onSubmit={addPatient} />
+      </Drawer>
     </div>
   );
-}
+};

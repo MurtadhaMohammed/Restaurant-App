@@ -1,5 +1,5 @@
 {
-  "name": "restaurant-desktop",
+  "name": "racheta-desktop",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
@@ -7,7 +7,7 @@
     "start": "electron .",
     "serve": "parcel ./src/index.html --public-url ./ --target=electron",
     "brow": "parcel ./src/index.html",
-    "build-mac": "electron-packager . restaurant --overwrite --asar=true --platform=win32 --arch=ia32  --out=build"
+    "build-mac": "electron-packager . racheta --overwrite --asar=true --platform=win32 --arch=ia32  --out=build"
   },
   "keywords": [],
   "author": "",
@@ -15,7 +15,9 @@
   "dependencies": {
     "antd": "^4.8.2",
     "file-dialog": "0.0.8",
+    "file-icon-vectors": "^1.0.0",
     "fs-extra": "^9.0.1",
+    "get-age": "^1.0.1",
     "moment": "^2.27.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
